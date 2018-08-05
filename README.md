@@ -1,4 +1,4 @@
-# arcad-game
+# Arcad Game
 This is a Udacity Front-end Developer Nanodegree Project. Udacity provided visual assets and the game loop engine.
 
 # Instructions
