@@ -2,7 +2,6 @@ var score = document.querySelector(".score");
 var clapSound = document.querySelector("#clapping");
 var jump = document.querySelector("#jump");
 var gameOver = document.querySelector("#game-over");
-var resetButton = document.querySelector("#reset");
 var winnigCount = 0;
 
 
@@ -36,7 +35,7 @@ Enemy.prototype.update = function(dt) {
         player.y < this.y + 60 &&
         player.y + 40 > this.y) {
             player.x = 200;
-            player.y = 370;
+            player.y = 650;
             gameOver.play();
     };
 
@@ -53,7 +52,7 @@ var Player = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.sprite = 'images/char-boy.png';
+    this.sprite = 'images/char-horn-girl.png';
 };
 
 Player.prototype.update = function(dt){
@@ -63,37 +62,37 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Objects instantiate your.
+// Objects instantiate.
 var allEnemies = [];
 var enemy;
-var player = new Player(200, 370, 50);
-var enemyPosition = [60, 140, 220];
+var player = new Player(200, 650, 50);
+var enemyPosition = [60, 140, 220, 400, 470];
 
 // Creating enemy every time with new speed
-enemyPosition.forEach (function (y){
-    enemy = new Enemy(0, y, 100 + Math.floor(Math.random() * 200));
+enemyPosition.forEach (function (y) {
+    enemy = new Enemy(0, y, 200 + Math.floor(Math.random() * 300));
     allEnemies.push(enemy);
-})
+});
 
 
 // Player key control
 Player.prototype.handleInput = function (keyPress) {
     if (keyPress == 'left' && this.x > 0) {
         jump.play();
-        this.x -= 110;
+        this.x -= 100;
         
     }; 
     if (keyPress == 'right' && this.x < 400) {
-        this.x += 110;
+        this.x += 100;
         jump.play();
     };
     if (keyPress == 'up' && this.y > 0) {
         jump.play();
-        this.y -= 75;
+        this.y -= 85;
         
     };
     if (keyPress == 'down' && this.y < 400) {
-        this.y += 75;
+        this.y += 85;
         jump.play();
     };
 
@@ -101,7 +100,7 @@ Player.prototype.handleInput = function (keyPress) {
     if (this.y < 0) {
         setTimeout ( function () {
             player.x = 200;
-            player.y = 370;
+            player.y = 650;
         }, 3000);
         winnigCount++;
         this.y = 0;
@@ -109,13 +108,8 @@ Player.prototype.handleInput = function (keyPress) {
         clapSound.play();
     };
 };
-//Sound effects
-function reset () {
-    player.x = 200;
-    player.y = 370;
-    winnigCount = 0;
-    score.innerHTML = 0;
-}
+
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. 
 document.addEventListener('keyup', function(e) {
@@ -128,4 +122,4 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-resetButton.addEventListener('click', reset)
+resetButton.addEventListener('click', reset);
